@@ -21,7 +21,7 @@ function RenderCampsite({campsite}) {
 }
 
 
-function RenderComment({comments}) {
+function RenderComments({comments}) {
 
     const renderCommentItem = ({item}) => {
         return(
