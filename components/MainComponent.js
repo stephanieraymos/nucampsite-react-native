@@ -6,7 +6,7 @@ import Directory from './DirectoryComponent';
 import CampsiteInfo from './CampsiteInfoComponent';
 import { View, Platform, StyleSheet, Text, ScrollView, Image } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
-import { icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import SafeAreaView from 'react-native-safe-area-view';
 
 
