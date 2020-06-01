@@ -4,8 +4,9 @@ import About from './AboutComponent';
 import Contact from './ContactComponent';
 import Directory from './DirectoryComponent';
 import CampsiteInfo from './CampsiteInfoComponent';
-import { View, Platform } from 'react-native';
+import { View, Platform, StyleSheet } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
+import { icon } from 'react-native-elements';
 
 
 const AboutNavigator = createStackNavigator(
@@ -44,7 +45,17 @@ const ContactNavigator = createStackNavigator(
 
 const DirectoryNavigator = createStackNavigator(
     {
-        Directory: { screen: Directory },
+        Directory: { 
+            screen: Directory,
+          navigationOptions: ({navigation}) => ({
+            headerLeft: <Icon
+                name='list'
+                type='font-awesome'
+                iconStyle={styles.stackIcon}
+                onPress={() => navigation.toggleDrawer()}
+            />
+          })
+        },
         CampsiteInfo: { screen: CampsiteInfo }
     },
     {
