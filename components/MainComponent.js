@@ -133,4 +133,11 @@ class Main extends Component {
     }
 }
 
+const styles = StyleSheet.create({
+    stackIcon: {
+        marginLeft: 10,
+        color: '#fff',
+        fontSize: 24
+    }
+});
 export default Main;
