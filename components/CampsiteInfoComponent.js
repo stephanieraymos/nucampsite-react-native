@@ -28,6 +28,8 @@ function RenderCampsite(props) {
 
     const recognizeDrag = ({ dx }) => (dx < -200) ? true : false;
 
+    const recognizeComment = ({ dy }) => (dy < -200) ? true : false;
+
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
         onPanResponderGrant: () => {

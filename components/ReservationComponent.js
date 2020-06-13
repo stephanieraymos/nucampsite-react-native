@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, ScrollView, StyleSheet, Picker, Switch, Button, Modal } from 'react-native';
+import { Text, View, StyleSheet, Picker, Switch, Button, Alert } from 'react-native';
 import DatePicker from 'react-native-datepicker';
+import * as Animatable from 'react-native-animatable';
 
 class Reservation extends Component {
 
@@ -11,7 +12,7 @@ class Reservation extends Component {
             campers: 1,
             hikeIn: false,
             date: '',
-            showModal: false
+            // showAlert: false
         };
     }
 
@@ -19,23 +20,42 @@ class Reservation extends Component {
         title: 'Reserve Campsite'
     }
 
-    toggleModal() {
-      this.setState({showModal: !this.state.showModal});
-  }
+    //     toggleModal() {
+    //       this.setState({showModal: !this.state.showModal});
+    //   }
 
-  handleReservation() {
-      console.log(JSON.stringify(this.state));
-      this.toggleModal();
-  }
 
-  resetForm() {
-      this.setState({
-          campers: 1,
-          hikeIn: false,
-          date: '',
-          showModal: false
-      });
-  }
+    handleReservation() {
+        console.log(JSON.stringify(this.state));
+
+        const message = 
+        `Number of Campers: ${this.state.campers}
+        \nHike-In? ${ this.state.hikeIn }
+        \nDate: ${this.state.date}`;
+
+        Alert.alert(
+            "Begin Search?",
+            message,
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => this.resetForm(),
+                    style: "cancel"
+                },
+                { text: "OK", onPress: () => this.resetForm() }
+            ],
+            { cancelable: false }
+        );
+    }
+
+    resetForm() {
+        this.setState({
+            campers: 1,
+            hikeIn: false,
+            date: '',
+            //   showAlert: false
+        });
+    }
 
     render() {
         return (
@@ -45,7 +65,7 @@ class Reservation extends Component {
                     <Picker
                         style={styles.formItem}
                         selectedValue={this.state.campers}
-                        onValueChange={itemValue => this.setState({campers: itemValue})}>
+                        onValueChange={itemValue => this.setState({ campers: itemValue })}>
                         <Picker.Item label='1' value='1' />
                         <Picker.Item label='2' value='2' />
                         <Picker.Item label='3' value='3' />
@@ -59,14 +79,14 @@ class Reservation extends Component {
                     <Switch
                         style={styles.formItem}
                         value={this.state.hikeIn}
-                        trackColor={{true: '#5637DD', false: null}}
-                        onValueChange={value => this.setState({hikeIn: value})}>
+                        trackColor={{ true: '#5637DD', false: null }}
+                        onValueChange={value => this.setState({ hikeIn: value })}>
                     </Switch>
                 </View>
                 <View style={styles.formRow}>
                     <Text style={styles.formLabel}>Date</Text>
                     <DatePicker
-                        style={{flex: 2, marginRight: 20}}
+                        style={{ flex: 2, marginRight: 20 }}
                         date={this.state.date}
                         format='YYYY-MM-DD'
                         mode='date'
@@ -85,7 +105,7 @@ class Reservation extends Component {
                                 marginLeft: 36
                             }
                         }}
-                        onDateChange={date => {this.setState({date: date})}}
+                        onDateChange={date => { this.setState({ date: date }) }}
                     />
                 </View>
                 <View style={styles.formRow}>
@@ -96,11 +116,11 @@ class Reservation extends Component {
                         accessibilityLabel='Tap me to search for available campsites to reserve'
                     />
                 </View>
-                <Modal
+                {/* <Alert
                     animationType={'slide'}
                     transparent={false}
-                    visible={this.state.showModal}
-                    onRequestClose={() => this.toggleModal()}>
+                    visible={this.state.showAlert}
+                    onRequestClose={() => this.resetForm()}>
                     <View style={styles.modal}>
                         <Text style={styles.modalTitle}>Search Campsite Reservations</Text>
                         <Text style={styles.modalText}>Number of Campers: {this.state.campers}</Text>
@@ -108,14 +128,14 @@ class Reservation extends Component {
                         <Text style={styles.modalText}>Date: {this.state.date}</Text>
                         <Button
                             onPress={() => {
-                                this.toggleModal();
+                                // this.toggleModal();
                                 this.resetForm();
                             }}
                             color='#5637DD'
                             title='Close'
                         />
                     </View>
-                </Modal>
+                </Alert> */}
             </Animatable.View>
         );
     }
@@ -136,22 +156,22 @@ const styles = StyleSheet.create({
     formItem: {
         flex: 1
     },
-    modal: { 
-      justifyContent: 'center',
-      margin: 20
-  },
-  modalTitle: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      backgroundColor: '#5637DD',
-      textAlign: 'center',
-      color: '#fff',
-      marginBottom: 20
-  },
-  modalText: {
-      fontSize: 18,
-      margin: 10
-  }
+    modal: {
+        justifyContent: 'center',
+        margin: 20
+    },
+    modalTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        backgroundColor: '#5637DD',
+        textAlign: 'center',
+        color: '#fff',
+        marginBottom: 20
+    },
+    modalText: {
+        fontSize: 18,
+        margin: 10
+    }
 });
 
 export default Reservation;
