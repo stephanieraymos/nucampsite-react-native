@@ -31,15 +31,18 @@ class Reservation extends Component {
         const message = 
         `Number of Campers: ${this.state.campers}
         \nHike-In? ${ this.state.hikeIn }
-        \nDate: ${this.state.date}`;
+        '\nDate: ${this.state.date}`;
 
         Alert.alert(
             "Begin Search?",
             message,
             [
                 {
-                    text: "Cancel",
-                    onPress: () => this.resetForm(),
+                    text: 'Cancel',
+                    onPress: () => {
+                        console.log('Cancel Reservation');
+                        this.resetForm();
+                    },
                     style: "cancel"
                 },
                 { text: "OK", onPress: () => this.resetForm() }
