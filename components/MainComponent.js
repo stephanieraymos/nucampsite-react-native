@@ -365,6 +365,7 @@ class Main extends Component {
         (Platform.OS === 'ios') ? Alert.alert('Connection change:', connectionMsg)
             : ToastAndroid.show(connectionMsg, ToastAndroid.LONG);
     }
+    
     render() {
         return (
             <View style={{
